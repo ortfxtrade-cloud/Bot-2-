@@ -25,8 +25,6 @@ class MultiPairOracle:
 def get_menu_keyboard(chat_id):
     """Generates a dynamic menu based on the watchlist."""
     keyboard = [...] # Everything inside is indented by 4 spaces
-
-
         """Generates a dynamic menu based on the watchlist."""
         keyboard = [
             [InlineKeyboardButton(f"Check {p}", callback_data=f"check_{p}")]
