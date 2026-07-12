@@ -1,4 +1,4 @@
-yaimport yfinance as yf
+import yfinance as yf
 import requests
 import asyncio
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
