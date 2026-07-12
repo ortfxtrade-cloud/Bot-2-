@@ -5,16 +5,19 @@ from flask import Flask
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 
-# 1. Flask Web Server to keep the bot alive on Render
-app_flask = Flask(__name__)
+# 5. FLASK WEB FRAMEWORK SERVICE
+server = Flask(__name__)
 
-@app_flask.route('/')
-def home():
-    return "Bot is active!"
+@server.route('/')
+def live_health_status_endpoint():
+    # ... returns a status string ...
+    return f"STATUS: {status_msg} | TRACKED_PAIRS: {count}", 200
 
-def run_web_server():
-    port = int(os.environ.get("PORT", 4000))
-    app_flask.run(host='0.0.0.0', port=port)
+def run_flask_app():
+    # Render provides the port in the PORT environment variable
+    port = int(os.environ.get("PORT", 8080))
+    server.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
+
 
 class MultiPairOracle:
     def __init__(token, chat_id):
@@ -69,30 +72,7 @@ async def button_handler(self, update: Update, context: ContextTypes.DEFAULT_TYP
 if __name__ == "__main__":
     TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
     CHAT_ID = "8701685996"
-    
-    from telegram.ext import Application, CommandHandler, CallbackQueryHandler
-
-# 1. Define the class at the top level
-class MultiPairOracle:
-    def __init__(self, token, chat_id):
-        self.token = token
-        self.chat_id = chat_id
-        # You also need to define start_menu and button_handler methods here
-        
-    def start_menu(self, update, context):
-        pass 
-
-    def button_handler(self, update, context):
-        pass
-
-# --- Execution ---
-if __name__ == "__main__":
-    TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
-    CHAT_ID = "8701685996"
-    
-    # 2. Now you can safely instantiate the class
     oracle = MultiPairOracle(TOKEN, CHAT_ID)
-    
     app = Application.builder().token(TOKEN).build()
     
     app.add_handler(CommandHandler("start", oracle.start_menu))
