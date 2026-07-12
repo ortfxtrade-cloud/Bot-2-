@@ -4,6 +4,17 @@ import asyncio
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 
+# 1. Flask Web Server to keep the bot alive on Render
+app_flask = Flask(__name__)
+
+@app_flask.route('/')
+def home():
+    return "Bot is active!"
+
+def run_web_server():
+    port = int(os.environ.get("PORT", 10000))
+    app_flask.run(host='0.0.0.0', port=port)
+
 class MultiPairOracle:
     def __init__(token, chat_id):
         self.token="8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
