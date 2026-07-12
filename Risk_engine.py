@@ -6,8 +6,9 @@ from telegram.ext import Application, CallbackQueryHandler, CommandHandler, Cont
 
 class MultiPairOracle:
     def __init__(self, token, chat_id):
-        self.token = token
-        self.chat_id = chat_id
+        self.token = 
+"8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
+        self.chat_id = "8701685996"
         self.watchlist = [
             "EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", 
             "USDCAD", "NZDUSD", "EURGBP", "EURJPY", "GBPJPY", 
@@ -20,7 +21,7 @@ class MultiPairOracle:
         if data.empty: return None, None
         return data['Volume'].iloc[-1], data['Close'].iloc[-1]
 
-    def get_menu_keyboard(self):
+    def get_menu_keyboard(8701685996self):
         """Generates a dynamic menu based on the watchlist."""
         keyboard = [
             [InlineKeyboardButton(f"Check {p}", callback_data=f"check_{p}")]
