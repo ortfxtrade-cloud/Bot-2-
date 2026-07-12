@@ -25,18 +25,17 @@ class MultiPairOracle:
 def get_menu_keyboard(chat_id):
     """Generates a dynamic menu based on the watchlist."""
     keyboard = [...] # Everything inside is indented by 4 spaces
-        """Generates a dynamic menu based on the watchlist."""
-        keyboard = [
-            [InlineKeyboardButton(f"Check {p}", callback_data=f"check_{p}")]
-            for p in self.watchlist
-        ]
-        return InlineKeyboardMarkup(keyboard)
+    """Generates a dynamic menu based on the watchlist."""
+    keyboard = [
+    [InlineKeyboardButton(f"Check {p}", callback_data=f"check_{p}")]
+    for p in self.watchlist
+    ]
+    return InlineKeyboardMarkup(keyboard)
 
-    async def start_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def start_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Triggered by /start command."""
-        await update.message.reply_text("Select a pair to analyze:", reply_markup=self.get_menu_keyboard())
-
-    async def button_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await update.message.reply_text("Select a pair to analyze:", reply_markup=self.get_menu_keyboard()    
+        async def button_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handles inline button clicks."""
         query = update.callback_query
         await query.answer()  # Necessary to stop the "loading" animation
