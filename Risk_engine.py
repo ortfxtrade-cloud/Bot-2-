@@ -5,7 +5,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes
 
 class MultiPairOracle:
-    def __init__(self, token, chat_id):
+    def __init__(token, chat_id):
         TELEGRAM_TOKEN="8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
         chat_id= "8701685996"
         watchlist= [
@@ -14,13 +14,17 @@ class MultiPairOracle:
             "AUDJPY", "CHFJPY", "CADJPY", "EURCHF", "GBPCHF"
         ]
 
-    def fetch_data(self, pair):
+    def fetch_data(chat_id, pair):
         ticker = yf.Ticker(f"{pair}=X")
         data = ticker.history(period="1d", interval="1m")
         if data.empty: return None, None
         return data['Volume'].iloc[-1], data['Close'].iloc[-1]
 
-        def get_menu_keyboard(self, chat_id):
+        
+# RIGHT
+def get_menu_keyboard(chat_id):
+    """Generates a dynamic menu based on the watchlist."""
+    keyboard = [...] # Everything inside is indented by 4 spaces
 
 
         """Generates a dynamic menu based on the watchlist."""
