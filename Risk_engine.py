@@ -6,9 +6,9 @@ from telegram.ext import Application, CallbackQueryHandler, CommandHandler, Cont
 
 class MultiPairOracle:
     def __init__(token, chat_id):
-        TELEGRAM_TOKEN="8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
-        chat_id= "8701685996"
-        watchlist= [
+        self.token="8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
+        self.chat_id= "8701685996"
+        self.watchlist= [
             "EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", 
             "USDCAD", "NZDUSD", "EURGBP", "EURJPY", "GBPJPY", 
             "AUDJPY", "CHFJPY", "CADJPY", "EURCHF", "GBPCHF"
@@ -53,8 +53,8 @@ async def start_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # --- Execution ---
 if __name__ == "__main__":
-    TOKEN = "YOUR_TOKEN"
-    CHAT_ID = "YOUR_CHAT_ID"
+    TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
+    CHAT_ID = "8701685996"
     
     oracle = MultiPairOracle(TOKEN, CHAT_ID)
     app = Application.builder().token(TOKEN).build()
