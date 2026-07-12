@@ -57,12 +57,29 @@ if __name__ == "__main__":
     TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
     CHAT_ID = "8701685996"
     
-    class MultiPairOracle:
-    def __init__(self, token, chat_id):  # Now accepts 2 arguments + self
+    from telegram.ext import Application, CommandHandler, CallbackQueryHandler
+
+# 1. Define the class at the top level
+class MultiPairOracle:
+    def __init__(self, token, chat_id):
         self.token = token
         self.chat_id = chat_id
-        # ... rest of your initialization ...
+        # You also need to define start_menu and button_handler methods here
+        
+    def start_menu(self, update, context):
+        pass 
 
+    def button_handler(self, update, context):
+        pass
+
+# --- Execution ---
+if __name__ == "__main__":
+    TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
+    CHAT_ID = "8701685996"
+    
+    # 2. Now you can safely instantiate the class
+    oracle = MultiPairOracle(TOKEN, CHAT_ID)
+    
     app = Application.builder().token(TOKEN).build()
     
     app.add_handler(CommandHandler("start", oracle.start_menu))
