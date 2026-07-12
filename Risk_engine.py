@@ -20,6 +20,7 @@ class MultiPairOracle:
     def __init__(token, chat_id):
         self.token="8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
         self.chat_id= "8701685996"
+        PORT = int(os.environ.get("PORT", 10000))
         self.watchlist= [
             "EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", 
             "USDCAD", "NZDUSD", "EURGBP", "EURJPY", "GBPJPY", 
