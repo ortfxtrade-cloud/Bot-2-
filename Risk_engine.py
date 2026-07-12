@@ -20,7 +20,8 @@ class MultiPairOracle:
         if data.empty: return None, None
         return data['Volume'].iloc[-1], data['Close'].iloc[-1]
 
-    def get_menu_keyboard(8701685996):
+    keyboard = get_menu_keyboard(8701685996):
+
         """Generates a dynamic menu based on the watchlist."""
         keyboard = [
             [InlineKeyboardButton(f"Check {p}", callback_data=f"check_{p}")]
