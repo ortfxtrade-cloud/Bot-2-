@@ -34,7 +34,7 @@ def get_menu_keyboard(chat_id):
 
 async def start_menu(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Triggered by /start command."""
-        await update.message.reply_text("Select a pair to analyze:", reply_markup=self.get_menu_keyboard()    
+        await update.message.reply_text("Select a pair to analyze:", reply_markup=self.get_menu_keyboard())    
         async def button_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handles inline button clicks."""
         query = update.callback_query
