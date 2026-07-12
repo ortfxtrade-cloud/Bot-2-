@@ -20,9 +20,9 @@ def run_flask_app():
 
 
 class MultiPairOracle:
-    def __init__(token, chat_id):
-        self.token="8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
-        self.chat_id= "8701685996"
+    def __init__(TELEGRAM_TOKEN, CHAT_ID):
+        TELEGRAM_TOKEN="8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
+        CHAT_ID= "8701685996"
         PORT = int(os.environ.get("PORT", 4000))
         self.watchlist= [
             "EURUSD", "GBPUSD", "USDJPY", "USDCHF", "AUDUSD", 
@@ -70,7 +70,7 @@ async def button_handler(self, update: Update, context: ContextTypes.DEFAULT_TYP
 
 # --- Execution ---
 if __name__ == "__main__":
-    TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
+    TOKEN= "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
     CHAT_ID = "8701685996"
     oracle = MultiPairOracle(TOKEN, CHAT_ID)
     app = Application.builder().token(TOKEN).build()
