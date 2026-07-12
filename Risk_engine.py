@@ -1,4 +1,4 @@
-import yfinance as yf
+yaimport yfinance as yf
 import requests
 import asyncio
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -57,7 +57,12 @@ if __name__ == "__main__":
     TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
     CHAT_ID = "8701685996"
     
-    oracle = MultiPairOracle(TOKEN, CHAT_ID)
+    class MultiPairOracle:
+    def __init__(self, token, chat_id):  # Now accepts 2 arguments + self
+        self.token = token
+        self.chat_id = chat_id
+        # ... rest of your initialization ...
+
     app = Application.builder().token(TOKEN).build()
     
     app.add_handler(CommandHandler("start", oracle.start_menu))
