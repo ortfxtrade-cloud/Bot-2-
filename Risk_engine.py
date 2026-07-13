@@ -19,7 +19,6 @@ class MultiPairOracle:
     def __init__(self):
         self.file_path = "watchlist.json"
         self.watchlist = self.load_watchlist()
-        # Full list of available pairs to choose from
         self.available_pairs = ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD", "NZDUSD", "USDCAD", "USDCHF", "EURJPY", "GBPJPY", "EURGBP", "BTC-USD", "ETH-USD"]
 
     def load_watchlist(self):
@@ -48,6 +47,7 @@ class MultiPairOracle:
         for p in self.watchlist:
             cv, nv, cvel, nvel, c_spr, n_spr = self.fetch_stats(p)
             if cv:
+                # 2.0x Threshold logic for 5m binary options
                 is_unsafe = (cv > nv * 2.0) or (cvel > nvel * 2.0) or (c_spr > n_spr * 2.0)
                 status = "⚠" if is_unsafe else "✔"
                 table += f"{p:<9} | {cv/1000:.0f}/{nv/1000:.0f} | {cvel:.3f}/{nvel:.3f} | {c_spr:.1f}/{n_spr:.1f} | {status}\n"
@@ -63,23 +63,18 @@ class MultiPairOracle:
 
         if data == 'refresh':
             await query.edit_message_text(self.generate_table(), reply_markup=self.get_main_keyboard(), parse_mode='MarkdownV2')
-        
         elif data == 'add_menu':
-            # Create a button for every available pair
             keyboard = [[InlineKeyboardButton(p, callback_data=f'add_{p}')] for p in self.available_pairs if p not in self.watchlist]
             keyboard.append([InlineKeyboardButton("🔙 Back", callback_data='refresh')])
             await query.edit_message_text("Select a pair to add:", reply_markup=InlineKeyboardMarkup(keyboard))
-
         elif data.startswith('add_'):
             pair = data.split('_')[1]
             if pair not in self.watchlist: self.watchlist.append(pair); self.save_watchlist()
             await query.edit_message_text(f"✅ Added {pair}", reply_markup=self.get_main_keyboard())
-
         elif data == 'rem_menu':
             keyboard = [[InlineKeyboardButton(p, callback_data=f'rem_{p}')] for p in self.watchlist]
             keyboard.append([InlineKeyboardButton("🔙 Back", callback_data='refresh')])
             await query.edit_message_text("Select to remove:", reply_markup=InlineKeyboardMarkup(keyboard))
-
         elif data.startswith('rem_'):
             pair = data.split('_')[1]
             if pair in self.watchlist: self.watchlist.remove(pair); self.save_watchlist()
@@ -88,8 +83,9 @@ class MultiPairOracle:
 # --- 3. Execution ---
 if __name__ == "__main__":
     threading.Thread(target=run_flask_app, daemon=True).start()
+    TOKEN = "8211995565:AAE7b59PtbFY-h40XmDW7tPtyY9ld6rOnao"
     oracle = MultiPairOracle()
-    app = Application.builder().token(os.environ.get("TOKEN")).build()
+    app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("table", oracle.show_table))
     app.add_handler(CallbackQueryHandler(oracle.handle_callback))
     app.run_polling()
